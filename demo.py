@@ -1,7 +1,30 @@
 #!/usr/bin/python
 #coding=utf-8
 import  xml.dom.minidom
+import os
 
+
+##获取目录下的XML文件列表
+###参数：目录路径
+def getFileList(dir_path):
+    #获取目录XXX列表
+    listfile = os.listdir(dir_path)
+    #返回结果
+    returnlist = {}
+    #过滤目录和无用文件
+    i = 0
+    for f in listfile:
+        if os.path.isfile(f):
+            #只获取xml文件
+            if os.path.splitext(f)[1] == '.xml':
+                i += 1
+                returnlist[i] = f
+
+    return returnlist
+
+
+##解析XML文件并放入DB字典
+###参数：文件路径
 def file2dict(file_path):
     #打开xml文档
     dom = xml.dom.minidom.parse('demo.xml')
@@ -36,9 +59,18 @@ def file2dict(file_path):
 
     return database
 
-
+#测试file2dict方法
 database = file2dict('xxx')
 for k,val in database.items():
     if k == 'fields':
         for k,v in val.items():
             print v['type'],'---',v['name']
+
+
+#获取当前工作路径
+dir_path = os.getcwd()
+print dir_path
+
+#测试getFileList方法
+filelist = getFileList(dir_path)
+print filelist
