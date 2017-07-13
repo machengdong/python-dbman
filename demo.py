@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#coding=utf-8
+# -*- coding: UTF-8 -*-
 import  xml.dom.minidom
 import os
 import logging
@@ -42,21 +42,37 @@ def file2dict(file_path):
 
             #得到数据表名称
             if node.nodeName == 'tablename':
-                database['tablename'] = node.nodeName
+                database['tablename'] = node.firstChild.data
+
 
             #得到数据表字段
             if node.nodeName == 'fields':
                 for n in node.childNodes:
                     if n.nodeName == 'item':
                         #得到字段名称
-                        cc=n.getElementsByTagName('fieldsname')
-                        c1=cc[0]
+                        cc = n.getElementsByTagName('fieldsname')
+                        c1 = cc[0]
                         #得到字段类型
-                        tt=n.getElementsByTagName('fieldstype')
-                        t1=tt[0]
+                        tt = n.getElementsByTagName('fieldstype')
+                        t1 = tt[0]
                         tmp = {'name':c1.firstChild.data,'type':t1.firstChild.data}
                         database['fields'][c1.firstChild.data] = tmp
+            #得到数据表索引
+            if node.nodeName == 'indexs':
+                for i in node.childNodes:
+                    if i.nodeName == 'item':
+                        #得到索引名称
+                        ii = i.getElementsByTagName('indexname')
+                        i1 = ii[0]
+                        #得到索引字段
+                        ff = i.getElementsByTagName('indexfields')
+                        f1 = ff[0]
+                        tmp = {'name':i1.firstChild.data,'fields':f1.firstChild.data}
+                        database['index'][i1.firstChild.data] = tmp
 
+            #得到数据表备注
+            if node.nodeName == 'comment':
+                database['comment'] = node.firstChild.data
 
     return database
 
@@ -80,6 +96,10 @@ for k,val in database.items():
     if k == 'fields':
         for k,v in val.items():
             print v['type'],'---',v['name']
+    if k == 'tablename':
+            print '表名：',val
+    if k == 'comment':
+            print '备注：',val
 
 
 #获取当前工作路径
