@@ -2,6 +2,7 @@
 #coding=utf-8
 import  xml.dom.minidom
 import os
+import logging
 
 
 ##获取目录下的XML文件列表
@@ -59,6 +60,20 @@ def file2dict(file_path):
 
     return database
 
+
+##写日志方法
+###参数：要记录的信息
+def __debuglog(_info):
+    logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    filename='myapp.log',#需修改，这里可以做能配置
+                    filemode='a')#"filemode=a"表示追加|"filemode=w"覆盖
+    logging.info(_info)
+
+
+
+
 #测试file2dict方法
 database = file2dict('xxx')
 for k,val in database.items():
@@ -74,3 +89,6 @@ print dir_path
 #测试getFileList方法
 filelist = getFileList(dir_path)
 print filelist
+
+#测试__debuglog方法
+__debuglog('xxxxxxxx')
