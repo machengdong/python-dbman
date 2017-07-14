@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import  xml.dom.minidom
+import xml.dom.minidom
 import os
 import logging
+import ConfigParser
 
 
 ##获取目录下的XML文件列表
@@ -88,6 +89,12 @@ def __debuglog(_info):
     logging.info(_info)
 
 
+##取配置的方法
+###参数：k配置的KEY,m配置的模块
+def getConfig(k,m='mysql'):
+    config = ConfigParser.ConfigParser()
+    config.readfp(open('dbman.ini'))
+    return config.get(m, k)
 
 
 #测试file2dict方法
@@ -112,3 +119,6 @@ print filelist
 
 #测试__debuglog方法
 __debuglog('xxxxxxxx')
+
+#测试getConfig方法
+print getConfig('port')
