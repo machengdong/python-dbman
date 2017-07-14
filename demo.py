@@ -6,6 +6,31 @@ import logging
 import ConfigParser
 
 
+##取配置的方法
+###参数：k配置的KEY,m配置的模块
+def getConfig(k='',m='mysql'):
+    config = ConfigParser.ConfigParser()
+    config.readfp(open('dbman.ini'))
+    if k == '':
+        return config.items(m)
+    else:
+        return config.get(m, k)
+
+
+##取整个模块的配置
+###参数：配置的模块名
+def getConfigList(m='mysql'):
+    item_list = getConfig('',m)
+    config_list = {}
+    for c in item_list:
+        config_list[c[0]] = c[1]
+    return config_list
+
+#Mysql模块的配置
+MysqlConf = getConfigList('mysql')
+#文件存放目录配置
+FilesConf = getConfigList('data_file')
+
 ##获取目录下的XML文件列表
 ###参数：目录路径
 def getFileList(dir_path):
@@ -25,9 +50,13 @@ def getFileList(dir_path):
     return returnlist
 
 
+
+
 ##解析XML文件并放入DB字典
 ###参数：文件路径
 def file2dict(file_path):
+    global FilesConf
+    #print FilesConf['data']
     #打开xml文档
     dom = xml.dom.minidom.parse('demo.xml')
 
@@ -89,12 +118,9 @@ def __debuglog(_info):
     logging.info(_info)
 
 
-##取配置的方法
-###参数：k配置的KEY,m配置的模块
-def getConfig(k,m='mysql'):
-    config = ConfigParser.ConfigParser()
-    config.readfp(open('dbman.ini'))
-    return config.get(m, k)
+
+
+
 
 
 #测试file2dict方法
@@ -120,5 +146,5 @@ print filelist
 #测试__debuglog方法
 __debuglog('xxxxxxxx')
 
-#测试getConfig方法
-print getConfig('port')
+
+
