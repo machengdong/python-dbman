@@ -4,9 +4,6 @@ import xml.dom.minidom
 import os
 import logging
 import ConfigParser
-import warnings
-#忽略warning警告错误
-warnings.filterwarnings("ignore")
 
 
 ##取配置的方法
@@ -38,13 +35,12 @@ def getFileList(dir_path):
     #返回结果
     returnlist = {}
     #过滤目录和无用文件
-    i = 0
     for f in listfile:
-        if os.path.isfile(f):
+        file = dir_path+'/'+f
+        if os.path.isfile(file):
             #只获取xml文件
             if os.path.splitext(f)[1] == '.xml':
-                i += 1
-                returnlist[i] = f
+                returnlist[os.path.splitext(f)[0]] = f
 
     return returnlist
 

@@ -1,16 +1,30 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import utils
 import mysql
+import utils.utils as utils
 
-#print utils.getConfigList()
+class kernel:
 
-m = mysql.mysql()
-sql = "SELECT * FROM phinxlog"
+    conf = {}
+    def __init__(self):
+        self.conf = utils.getConfigList('misc')
+        self.m = mysql.mysql()
 
-print m.getRow(sql)
-print '\r\n--------------\r\n'
-print m.getList(sql)
+    def __del__(self):
+        print '-------------'
 
 
-print m.drop_table('t201704241')
+    def update(self):
+        database_path = self.conf['data']
+        dbFiles = utils.getFileList(database_path)
+        for table_name in dbFiles:
+            full_file_path = database_path + dbFiles[table_name]
+            full_file_content = utils.file2dict(full_file_path)
+            # 判断表是否存在
+            if self.m.table_exists(table_name):
+                # 添加表
+                print '--------- 更新表 ---------'+table_name
+            else:
+                print '--------- 添加表 ---------'+table_name
+
+

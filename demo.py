@@ -128,16 +128,7 @@ def __debuglog(_info):
 
 
 
-#测试file2dict方法
-database = file2dict('xxx')
-for k,val in database.items():
-    if k == 'fields':
-        for k,v in val.items():
-            print v['type'],'---',v['name']
-    if k == 'tablename':
-            print '表名：',val
-    if k == 'comment':
-            print '备注：',val
+
 
 
 #获取当前工作路径
@@ -145,8 +136,8 @@ dir_path = os.getcwd()
 print dir_path
 print '\r\n--------------\r\n'
 #测试getFileList方法
-filelist = getFileList(dir_path)
-print filelist
+#filelist = getFileList(dir_path)
+#print filelist
 
 #测试__debuglog方法
 #__debuglog('xxxxxxxx')
@@ -158,7 +149,7 @@ sql = "SHOW FULL COLUMNS FROM phinxlog"
 
 #print m.table_exists('members')
 print '\r\n--------------\r\n'
-#print m.getList(sql)
+print m.getList(sql)
 
 
 

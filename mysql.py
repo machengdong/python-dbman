@@ -2,14 +2,16 @@
 # -*- coding: UTF-8 -*-
 
 import MySQLdb
-import utils
+
+import utils.utils as utils
+
 
 class mysql:
 
     conf = {}
 
     def __init__(self):
-        mysql.conf = utils.getConfigList()
+        mysql.conf = utils.getConfigList('mysql')
         self.connect()
 
     def __del__(self):
