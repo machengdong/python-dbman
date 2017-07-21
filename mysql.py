@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import MySQLdb
-
 import utils
 
 class mysql:
