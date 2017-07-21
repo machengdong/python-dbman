@@ -4,6 +4,9 @@ import xml.dom.minidom
 import os
 import logging
 import ConfigParser
+import warnings
+#忽略warning警告错误
+warnings.filterwarnings("ignore")
 
 
 ##取配置的方法

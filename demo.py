@@ -5,6 +5,9 @@ import os
 import logging
 import ConfigParser
 import mysql
+import warnings
+warnings.filterwarnings("ignore")
+
 
 
 
@@ -151,11 +154,12 @@ print filelist
 
 print '\r\n--------------\r\n'
 m = mysql.mysql()
-sql = "SELECT * FROM members"
+sql = "SHOW FULL COLUMNS FROM phinxlog"
 
-print m.getRow(sql)
+#print m.table_exists('members')
 print '\r\n--------------\r\n'
-print m.getList(sql)
+#print m.getList(sql)
 
 
 
+print m.drop_table('t201704241')

@@ -11,3 +11,6 @@ sql = "SELECT * FROM phinxlog"
 print m.getRow(sql)
 print '\r\n--------------\r\n'
 print m.getList(sql)
+
+
+print m.drop_table('t201704241')
