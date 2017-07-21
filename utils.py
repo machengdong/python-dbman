@@ -4,8 +4,6 @@ import xml.dom.minidom
 import os
 import logging
 import ConfigParser
-import mysql
-
 
 
 ##取配置的方法
@@ -28,10 +26,6 @@ def getConfigList(m='mysql'):
         config_list[c[0]] = c[1]
     return config_list
 
-#Mysql模块的配置
-MysqlConf = getConfigList('mysql')
-#文件存放目录配置
-FilesConf = getConfigList('data_file')
 
 ##获取目录下的XML文件列表
 ###参数：目录路径
@@ -52,15 +46,11 @@ def getFileList(dir_path):
     return returnlist
 
 
-
-
 ##解析XML文件并放入DB字典
 ###参数：文件路径
 def file2dict(file_path):
-    global FilesConf
-    #print FilesConf['data']
     #打开xml文档
-    dom = xml.dom.minidom.parse('demo.xml')
+    dom = xml.dom.minidom.parse(file_path)
 
     #得到文档元素对象
     root = dom.documentElement
@@ -120,42 +110,6 @@ def __debuglog(_info):
     logging.info(_info)
 
 
-
-
-
-
-
-#测试file2dict方法
-database = file2dict('xxx')
-for k,val in database.items():
-    if k == 'fields':
-        for k,v in val.items():
-            print v['type'],'---',v['name']
-    if k == 'tablename':
-            print '表名：',val
-    if k == 'comment':
-            print '备注：',val
-
-
-#获取当前工作路径
-dir_path = os.getcwd()
-print dir_path
-print '\r\n--------------\r\n'
-#测试getFileList方法
-filelist = getFileList(dir_path)
-print filelist
-
-#测试__debuglog方法
-#__debuglog('xxxxxxxx')
-
-
-print '\r\n--------------\r\n'
-m = mysql.mysql()
-sql = "SELECT * FROM members"
-
-print m.getRow(sql)
-print '\r\n--------------\r\n'
-print m.getList(sql)
 
 
 
