@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import mysql
+import utils.mysql as mysql
 import utils.utils as utils
+
 
 class kernel:
 
@@ -11,7 +12,7 @@ class kernel:
         self.m = mysql.mysql()
 
     def __del__(self):
-        print '-------------'
+        print '------------- END -------------'
 
 
     def update(self):
@@ -22,7 +23,8 @@ class kernel:
             full_file_content = utils.file2dict(full_file_path)
             # 判断表是否存在
             if self.m.table_exists(table_name):
-                # 添加表
+                # 更新表
+                print self.m.getTablesInfo(table_name)
                 print '--------- 更新表 ---------'+table_name
             else:
                 print '--------- 添加表 ---------'+table_name

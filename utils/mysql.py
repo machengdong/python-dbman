@@ -3,7 +3,7 @@
 
 import MySQLdb
 
-import utils.utils as utils
+import utils
 
 
 class mysql:
@@ -121,3 +121,18 @@ class mysql:
     def drop_table(self,table_name):
         sql = "DROP TABLE IF EXISTS "+table_name
         return self.execute(sql)
+
+    def getTablesInfo(self,table_name):
+        sql = 'SHOW FULL COLUMNS FROM `' + table_name + '`;'
+        result = self.getList(sql)
+        info = {}
+        for row in result:
+            #row = row.lower()
+            tmp = {
+                'type':row['Type'],
+                'notnull':row['Null'] == 'NO' if True else False,
+                'default':row['Default'] == None and None or row['Default']
+            }
+            info[row['Field']] = tmp
+
+        return info

@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import xml.dom.minidom
-import os
-import logging
 import ConfigParser
-import mysql
+import logging
+import os
 import warnings
+import xml.dom.minidom
+import utils.mysql as mysql
+
 warnings.filterwarnings("ignore")
 
 
