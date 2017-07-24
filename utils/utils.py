@@ -70,14 +70,43 @@ def file2dict(file_path):
             if node.nodeName == 'fields':
                 for n in node.childNodes:
                     if n.nodeName == 'item':
+                        temporary = {}
                         #得到字段名称
-                        cc = n.getElementsByTagName('fieldsname')
-                        c1 = cc[0]
+                        tt = n.getElementsByTagName('fieldsname')
+                        c1 = tt[0]
+                        temporary['fieldsname'] = c1.firstChild.data
                         #得到字段类型
                         tt = n.getElementsByTagName('fieldstype')
                         t1 = tt[0]
-                        tmp = {'name':c1.firstChild.data,'type':t1.firstChild.data}
-                        database['fields'][c1.firstChild.data] = tmp
+                        temporary['fieldstype'] = t1.firstChild.data
+                        # 得到字段类型
+                        nn = n.getElementsByTagName('notnull')
+                        n1 = nn[0]
+                        temporary['notnull'] = n1.firstChild.data
+
+                        # 得到字段类型
+                        dd = n.getElementsByTagName('default')
+                        d1 = dd[0]
+                        temporary['default'] = d1.firstChild.data
+
+                        # 得到字段类型
+                        pp = n.getElementsByTagName('primary')
+                        p1 = pp[0]
+                        temporary['primary'] = p1.firstChild.data
+
+                        # 得到字段类型
+                        aa = n.getElementsByTagName('autoinc')
+                        a1 = aa[0]
+                        temporary['autoinc'] = a1.firstChild.data
+
+                        # 得到字段类型
+                        oo = n.getElementsByTagName('comment')
+                        o1 = oo[0]
+                        temporary['comment'] = o1.firstChild.data
+
+                        #tmp = {'name':c1.firstChild.data,'type':t1.firstChild.data}
+
+                        database['fields'][c1.firstChild.data] = temporary
             #得到数据表索引
             if node.nodeName == 'indexs':
                 for i in node.childNodes:

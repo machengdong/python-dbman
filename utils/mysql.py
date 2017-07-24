@@ -90,7 +90,7 @@ class mysql:
                 # 定义一行
                 ir = {}
                 # 取出所有表头
-                for i in range(len(title) - 1):
+                for i in range(len(title)):
                     ir[title[i][0]] = row[i]
                 # 追加到list里面
                 list.append(ir)
@@ -131,8 +131,12 @@ class mysql:
             tmp = {
                 'type':row['Type'],
                 'notnull':row['Null'] == 'NO' if True else False,
-                'default':row['Default'] == None and None or row['Default']
+                'default':row['Default'] == None and None or row['Default'],
+                'primary':row['Key'] == 'PRI' and 'true' or 'false',
+                'autoinc':row['Extra'] == 'auto_increment' and 'true' or 'false',
+                'comment':row['Comment'],
             }
             info[row['Field']] = tmp
-
-        return info
+        fruit = {}
+        fruit['fields'] = info
+        return fruit

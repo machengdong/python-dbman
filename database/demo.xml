@@ -2,20 +2,40 @@
     <tablename>sdb_o2o_py</tablename>
     <fields>
         <item>
-            <fieldsname>id1</fieldsname>
+            <fieldsname>id</fieldsname>
             <fieldstype>int</fieldstype>
+            <notnull>true</notnull>
+            <default>0</default>
+            <primary>true</primary>
+            <autoinc>true</autoinc>
+            <comment>id</comment>
         </item>
         <item>
-            <fieldsname>id2</fieldsname>
-            <fieldstype>int</fieldstype>
+            <fieldsname>uname</fieldsname>
+            <fieldstype>varchar(20)</fieldstype>
+            <notnull>false</notnull>
+            <default>null</default>
+            <primary>false</primary>
+            <autoinc>false</autoinc>
+            <comment>uname</comment>
         </item>
         <item>
-            <fieldsname>id3</fieldsname>
+            <fieldsname>age</fieldsname>
             <fieldstype>int</fieldstype>
+            <notnull>false</notnull>
+            <default>0</default>
+            <primary>false</primary>
+            <autoinc>false</autoinc>
+            <comment>age</comment>
         </item>
         <item>
             <fieldsname>status</fieldsname>
             <fieldstype>enum('active','locked','successful','failing','finish')</fieldstype>
+            <notnull>false</notnull>
+            <default>active</default>
+            <primary>false</primary>
+            <autoinc>false</autoinc>
+            <comment>状态</comment>
         </item>
     </fields>
     <index>

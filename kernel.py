@@ -24,9 +24,22 @@ class kernel:
             # 判断表是否存在
             if self.m.table_exists(table_name):
                 # 更新表
-                print self.m.getTablesInfo(table_name)
+                full_db_content = self.m.getTablesInfo(table_name)
+                self.update_table_info(full_file_content,full_db_content)
                 print '--------- 更新表 ---------'+table_name
             else:
                 print '--------- 添加表 ---------'+table_name
+
+    def update_table_info(self,file_content,db_content):
+        is_update = False
+        for fiedls in file_content['fields']:
+            # 如果字段存在，就判断字段其他属性是否相同
+            if db_content['fields'].has_key(fiedls) and self.__fields_diff(file_content['fields'][fiedls],db_content['fields'][fiedls]):
+                print 1
+
+
+
+    def __fields_diff(self,file_fields,db_fields):
+        db_fields['type']
 
 
